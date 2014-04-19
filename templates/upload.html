@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+        You already have {{ n_dicts }} dictionaries:
+        <ol>
+            {% for d in dicts: %}
+                <li>{{ d.name }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+    <div>
+        <form method="post" action="{{ url_for('upload', username=username) }}" enctype="multipart/form-data">
+            <input type="text" name="dict_name" placeholder="Name of the dictionary">
+            <input type="file" name="dict_file">
+            <br>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    {% if not delay is none %}
+        <meta http-equiv="refresh" content="{{ delay }};url={{ redirect_url }}">
+    {% endif %}
+</head>
+<body>
+    <div>{{ message }}</div>
+</body>
+</html>

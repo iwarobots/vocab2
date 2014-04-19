@@ -5,9 +5,11 @@
 </head>
 <body>
     <div>
-        <form method="post" action="/sign_up">
+        <form method="post" action="{{ url_for('sign_up') }}">
             <input type="text" name="username" placeholder="Username">
+            <br>
             <input type="text" name="password" placeholder="Password">
+            <br>
             <button type="submit">Sign up for Vocab</button>
         </form>
     </div>

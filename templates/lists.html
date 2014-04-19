@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+        <ol>
+            {% for l in lists %}
+                <li>
+                    <a href="{{ url_for('quiz', username=username, dictid=dict_id, n_list=l) }}">{{ l }}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</body>
+</html>

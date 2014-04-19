@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+        You already have {{ n_dicts }} dictionaries:
+        <ol>
+            {% for d in dicts %}
+                <li>
+                    <a href="{{ url_for('quiz', username=username, dictid=d.id) }}">{{ d.name }}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</body>
+</html>
