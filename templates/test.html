@@ -2,27 +2,26 @@
 <html>
 <head>
     <title></title>
-</head>
-<body>
-    <div>
-        <script type="text/javascript">
-        function make_visibile(id) {
+    <script>
+        function make_visible(id) {
            var ele = document.getElementById(id);
            if (ele.style.visibility == 'hidden')
               ele.style.visibility = 'visible';
         }
-        </script>
-
+    </script>
+</head>
+<body>
+    <div>
         {{ word.spelling }}, {{ word.n_def }}
-        <a href="#" onclick="make_visibile('definition');">Show definitions</a>
+        <a href="#" onclick="make_visible('definition');">Show definitions</a>
         <p id="definition" style="visibility: hidden">{{ word.definitions }}</p>
     </div>
     <div>
         <div>
-            <a href=" {{ url_for('quiz', username=username, dictid=dictid, n_list=n_list, idinquiz=next_id) }}">I don't know</a>
+            <a href=" {{ url_for('quiz', username=username, dictid=dictid, n_list=n_list, idinquiz=idinquiz, mastered=0) }}">I don't know</a>
         </div>
         <div>
-            I know
+            <a href=" {{ url_for('quiz', username=username, dictid=dictid, n_list=n_list, idinquiz=idinquiz, mastered=1) }}">I know</a>
         </div>
     </div>
 </body>

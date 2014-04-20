@@ -83,10 +83,12 @@ class Test(db.Model):
     id_in_quiz = db.Column(db.Integer)
     word_id = db.Column(db.Integer)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quizzes.id'))
+    mastered = db.Column(db.Boolean)
 
-    def __init__(self, word_id, id_in_quiz):
+    def __init__(self, word_id, id_in_quiz, mastered=False):
         self.id_in_quiz = id_in_quiz
         self.word_id = word_id
+        self.mastered = mastered
 
 
 @app.route('/')
@@ -181,60 +183,80 @@ def quiz(username):
     dicts = user.dicts
     n_dicts = len(dicts)
     req_args = request.args
-    if len(req_args) == 0:
+    req_arg_keys = set(request.args.keys())
+
+    if req_arg_keys == set():
         return render_template('quiz.html',
                                username=username,
                                dicts=dicts,
                                n_dicts=n_dicts)
-    elif len(req_args) == 1:
-        if 'dictid' in req_args:
-            dict_id = req_args.get('dictid')
-            lists = set([l[0] for l in db.session.query(Word.n_list).all()])
-            return render_template('lists.html',
-                                   username=username,
-                                   dict_id=dict_id,
-                                   lists=lists)
-    elif len(req_args) == 2:
-        if 'n_list' in req_args and 'dictid' in req_args:
-            n_list = req_args.get('n_list')
-            dict_id = req_args.get('dictid')
-            quiz = Quiz.query.filter_by(name=n_list).first()
-            if quiz is None:
-                quiz = Quiz(n_list)
-                word_ids = db.session.query(Word.id).filter_by(n_list=n_list).all()
-                word_ids = [id[0] for id in word_ids]
-                random.shuffle(word_ids)
-                tests = []
-                for i, word_id in enumerate(word_ids):
-                    test = Test(word_id, i)
-                    tests.append(test)
-                quiz.tests = tests
-                db.session.add(quiz)
-                db.session.commit()
-            return redirect(
-                url_for(
-                    'quiz',
-                    username=username,
-                    n_list=n_list,
-                    dictid=dict_id,
-                    idinquiz=0,
-                )
-            )
-    elif len(req_args) == 3:
-        if 'n_list' in req_args and 'dictid' in req_args and 'idinquiz' in req_args:
-            n_list = req_args.get('n_list')
-            dict_id = req_args.get('dictid')
-            id_in_quiz = req_args.get('idinquiz')
-            test = Test.query.filter_by(id_in_quiz=id_in_quiz).first()
-            word = Word.query.filter_by(id=test.word_id).first()
-            return render_template(
-                'test.html',
+
+    elif req_arg_keys == {'dictid'}:
+        dict_id = req_args.get('dictid')
+        lists = set([l[0] for l in db.session.query(Word.n_list).all()])
+        return render_template('lists.html',
+                               username=username,
+                               dict_id=dict_id,
+                               lists=lists)
+
+    elif req_arg_keys == {'dictid', 'n_list'}:
+        n_list = req_args.get('n_list')
+        dict_id = req_args.get('dictid')
+        quiz = Quiz.query.filter_by(name=n_list).first()
+        if quiz is None:
+            quiz = Quiz(n_list)
+            word_ids = db.session.query(Word.id).filter_by(n_list=n_list).all()
+            word_ids = [id[0] for id in word_ids]
+            random.shuffle(word_ids)
+            tests = []
+            for i, word_id in enumerate(word_ids):
+                test = Test(word_id, i)
+                tests.append(test)
+            quiz.tests = tests
+            db.session.add(quiz)
+            db.session.commit()
+        return redirect(
+            url_for(
+                'quiz',
                 username=username,
-                word=word,
+                n_list=n_list,
+                dictid=dict_id,
+                idinquiz=0,
+            )
+        )
+
+    elif req_arg_keys == {'dictid', 'n_list', 'idinquiz'}:
+        n_list = req_args.get('n_list')
+        dict_id = req_args.get('dictid')
+        id_in_quiz = req_args.get('idinquiz')
+        test = Test.query.filter_by(id_in_quiz=id_in_quiz).first()
+        word = Word.query.filter_by(id=test.word_id).first()
+        return render_template(
+            'test.html',
+            username=username,
+            word=word,
+            dictid=dict_id,
+            n_list=n_list,
+            idinquiz=id_in_quiz
+        )
+
+    elif req_arg_keys == {'dictid', 'n_list', 'idinquiz', 'mastered'}:
+        n_list = req_args.get('n_list')
+        dict_id = req_args.get('dictid')
+        id_in_quiz = req_args.get('idinquiz')
+        masterd = req_args.get('mastered')
+        test = Test.query.filter_by(id_in_quiz=id_in_quiz).first()
+        test.mastered = masterd
+        db.session.commit()
+        return redirect(
+            url_for(
+                'quiz',
+                username=username,
                 dictid=dict_id,
                 n_list=n_list,
-                next_id=int(id_in_quiz)+1,
+                idinquiz=int(id_in_quiz)+1
             )
+        )
 
 
 if __name__ == '__main__':
