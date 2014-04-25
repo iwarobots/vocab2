@@ -2,6 +2,9 @@
 <html>
 <head>
     <title></title>
+    <script src="{{ url_for('static', filename='jquery-2.1.0.min.js') }}"></script>
+    <link href="{{ url_for('static', filename='bootstrap-3.1.1-dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='test.css') }}" rel="stylesheet">
     <script>
         function make_visible(id) {
            var ele = document.getElementById(id);
@@ -11,17 +14,23 @@
     </script>
 </head>
 <body>
-    <div>
-        {{ word.spelling }}, {{ word.n_def }}
-        <a href="#" onclick="make_visible('definition');">Show definitions</a>
-        <p id="definition" style="visibility: hidden">{{ word.definitions }}</p>
-    </div>
-    <div>
+    <div class="container">
         <div>
-            <a href="{{ url_for('quiz', username=username, dictid=dictid, n_list=n_list, idinquiz=idinquiz, mastered=0) }}">I don't know</a>
+            <h1>{{ word.spelling }}, {{ word.n_def }}</h1>
         </div>
         <div>
-            <a href="{{ url_for('quiz', username=username, dictid=dictid, n_list=n_list, idinquiz=idinquiz, mastered=1) }}">I know</a>
+            <a href="#" onclick="make_visible('definition');">Show definitions</a>
+        </div>
+        <div id="definition" style="visibility: hidden">
+            {{ word.definitions }}
+        </div>
+        <div id="word_test">
+            <div>
+                <a href="{{ url_for('quiz', username=username, dictid=dictid, n_list=n_list, idinquiz=idinquiz, mastered=0) }}" class="btn btn-primary">I don't know</a>
+            </div>
+            <div>
+                <a href="{{ url_for('quiz', username=username, dictid=dictid, n_list=n_list, idinquiz=idinquiz, mastered=1) }}" class="btn btn-primary">I know</a>
+            </div>
         </div>
     </div>
 </body>

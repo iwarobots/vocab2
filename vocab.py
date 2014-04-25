@@ -5,8 +5,10 @@
 import csv
 import random
 
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
+
+import read_alg
 
 
 app = Flask(__name__)
@@ -91,11 +93,6 @@ class Test(db.Model):
         self.mastered = mastered
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
 def render_redirect(redirect_url, redirect_template='redirect.html',
                     message='', delay=1):
     return render_template(
@@ -104,6 +101,46 @@ def render_redirect(redirect_url, redirect_template='redirect.html',
         message=message,
         delay=delay
     )
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/reader', methods=['GET', 'POST'])
+def reader():
+    keys = set(request.args.keys())
+    args = request.args
+
+    if request.method == 'GET':
+        if keys == set():
+            return render_template('reader.html')
+
+        elif keys == {'url'}:
+            url = args['url']
+            return read_alg.read(url)
+
+    elif request.method == 'POST':
+        form = request.form
+        article = form['article']
+        print(repr(article))
+        words = Word.query.all()
+        spellings = set([w.spelling for w in words])
+        article_words = article.lower().split()
+        words_in_article = set(article_words)
+        common = words_in_article.intersection(spellings)
+
+        common_spellings = []
+        common_definitions = []
+        for w in words:
+            s = w.spelling
+            if (s in common) and not (s in common_spellings):
+                common_spellings.append(s)
+                common_definitions.append(w.definitions)
+
+        return jsonify({'spellings': common_spellings, 'definitions': common_definitions})
+
 
 
 @app.route('/signup', methods=['GET', 'POST'])

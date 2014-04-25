@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}Reader{% endblock title %}
+
+{% block head %}
+    {{ super() }}
+    <meta charset="utf-8">
+    <script src="{{ url_for('static', filename='bootstrap/3.1.1/js/bootstrap.min.js') }}"></script>
+    <link href="{{ url_for('static', filename='css/reader.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/reader.js') }}"></script>
+{% endblock head %}
+
+{% block body %}
+    {{ super() }}
+    <div id="input-article-or-url" class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#article" id="article-tab" data-toggle="tab">
+                            <h3>Article</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#url" id="url-tab" data-toggle="tab">
+                            <h3>URL</h3>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="article">
+                        <textarea id="article-content" name="article" class="form-control" placeholder="Paste the article here"></textarea>
+                        <button id="article-submit" class="btn btn-default" onclick="submit_article();">Submit</button>
+                    </div>
+                    <div class="tab-pane" id="url">
+                        <form>
+                            <input name="url" class="form-control" placeholder="Type the URL here">
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="article-container" class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="article-section">
+                    <article id="article-display"></article>
+                </div>
+            </div>
+            <div id="word-list" class="col-md-4 col-md-offset-2">
+                <table id="word-table" class="table">
+                    <tr>
+                        <th>Word</th>
+                        <th>Definitions</th>
+                    </tr>
+                </table>
+                <div id="buttons">
+                    <button id="add" class="btn btn-success">Add selected word</button>
+                    <button id="view-definitions" class="btn btn-success">View all definitions</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

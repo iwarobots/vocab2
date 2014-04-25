@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "a";
+    src: url("/static/fonts/base64.woff") format('woff');
+}
+
+#input-article-or-url {
+    margin-top: 5em;
+}
+
+#article-container {
+    margin-top: 10em;
+}
+
+#article-section {
+    background-color: #eee;
+    font-family: a;
+}
+
+#buttons {
+    margin-top: 5em;
+}

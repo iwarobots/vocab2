@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock title %}</title>
+    <script src="{{ url_for('static', filename='jquery-2.1.0.min.js') }}"></script>
+    <link href="{{ url_for('static', filename='bootstrap/3.1.1/css/bootstrap.min.css') }}" rel="stylesheet">
+    {% endblock head %}
+</head>
+<body>
+    {% block body %}
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" id="logo" href="{{ url_for('index') }}">Vocab</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ url_for('sign_in') }}">Vocabulary</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('reader') }}">Reader</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{{ url_for('sign_in') }}">Sign in</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endblock body %}
+</body>
+</html>
