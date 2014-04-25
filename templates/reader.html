@@ -14,7 +14,7 @@
     {{ super() }}
     <div id="input-article-or-url" class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div id="article-col" class="col-md-8 col-md-offset-2">
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#article" id="article-tab" data-toggle="tab">
@@ -29,8 +29,10 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="article">
-                        <textarea id="article-content" name="article" class="form-control" placeholder="Paste the article here"></textarea>
-                        <button id="article-submit" class="btn btn-default" onclick="submit_article();">Submit</button>
+                        <div id="article-div">
+                            <textarea id="article-content" name="article" class="form-control" placeholder="Paste the article here"></textarea>
+                            <button id="article-submit" class="btn btn-default" onclick="submit_article()">Submit</button>
+                        </div>
                     </div>
                     <div class="tab-pane" id="url">
                         <form>
