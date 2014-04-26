@@ -3,9 +3,9 @@
     src: url("/static/fonts/base64.woff") format('woff');
 }
 
-body {
-    background-color: rgb(241, 242, 246);
-}
+/*body {*/
+    /*background-color: #1ABC9C;*/
+/*}*/
 
 .pane-div {
     width: 80%;
@@ -23,6 +23,10 @@ body {
 .text-submit-btn {
     margin-top: 2em;
     margin-bottom: 2em;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
 }
 
 #user-input-container {
@@ -47,9 +51,18 @@ body {
     height: 10em;
 }
 
-
-
 #article-panel {
     border: none;
 }
 
+#dict-panel .panel-heading {
+    border-bottom: 0px;
+}
+
+#dict-panel .panel-body {
+    padding: 0px;
+}
+
+#dict-panel .table {
+    margin-bottom: 0px;
+}

@@ -124,7 +124,6 @@ def reader():
     elif request.method == 'POST':
         form = request.form
         article = form['article']
-        print(repr(article))
         words = Word.query.all()
         spellings = set([w.spelling for w in words])
         article_words = article.lower().split()

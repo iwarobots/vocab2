@@ -1,5 +1,8 @@
+var WORDS_ADDED = [];
+
+
 function submit_article() {
-    article = $('#article-content').val();
+    article = $('#article-textarea').val();
     posting = $.post(
         '/reader',
         {"article": article},
@@ -42,8 +45,9 @@ function get_selected_word () {
 
 function add_selected () {
     var word = get_selected_word();
-    if (word != '') {
-        $('#word-table').append('<tr><td>' + word + '</td><td class="definition_undownloaded"><button id="view-definitions" class="btn btn-success">View definitions</button></td></tr>');
+    if (word != '' && WORDS_ADDED.indexOf(word) == -1) {
+        $('#word-table').append('<tr><td>' + (WORDS_ADDED.length+1).toString() + '</td><td>' + word + '</td><td class="definition_undownloaded"><button id="view-definitions" class="btn btn-success">View</button></td></tr>');
+        WORDS_ADDED.push(word);
     }
 }
 
@@ -58,7 +62,7 @@ function display_definitions() {
 
 
 $(document).ready(function() {
-    $('#add').click(function() {
+    $('#add-btn').click(function() {
         add_selected();
     });
 });

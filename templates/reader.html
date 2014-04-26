@@ -11,6 +11,46 @@
 
 {% block body %}
     {{ super() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div id="dict-panel" class="panel panel-default">
+                    <div id="dict-heading" class="panel-heading clearfix">
+                        <h4 class="pull-left">Dictionary</h4>
+                        <div class="pull-right">
+                            <button id="add-btn" class="btn btn-success">Add</button>
+                            <button id="expand-btn" class="btn btn-primary" data-toggle="collapse" href="#word-panel">Expand</button>
+                        </div>
+                    </div>
+                    <div id="word-panel" class="panel-body panel-collapse collapse in">
+                        <table id="word-table" class="table">
+                            <tr>
+                                <th>#</th>
+                                <th>Word</th>
+                                <th>Definitions</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button class="btn btn-success pull-right">View all definitions</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+{#            <div class="panel-body">#}
+{#                <div id="word-list">#}
+
+{#                </div>#}
+{#            </div>#}
+
+
+
+
+
     <div id="user-input-container" class="container">
         <div class="row">
             <div id="article-col" class="col-md-8 col-md-offset-2">
@@ -51,18 +91,6 @@
             <div class="col-md-8">
                 <div id="article-section">
                     <article id="article-display"></article>
-                </div>
-            </div>
-            <div id="word-list" class="col-md-3 col-md-offset-1">
-                <table id="word-table" class="table">
-                    <tr>
-                        <th>Word</th>
-                        <th>Definitions</th>
-                    </tr>
-                </table>
-                <div id="buttons">
-                    <button id="add" class="btn btn-success">Add selected word</button>
-                    <button id="view-definitions" class="btn btn-success">View all definitions</button>
                 </div>
             </div>
         </div>
