@@ -3,7 +3,29 @@
     src: url("/static/fonts/base64.woff") format('woff');
 }
 
-#input-article-or-url {
+body {
+    background-color: rgb(241, 242, 246);
+}
+
+.pane-div {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-pane {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    padding-top: 3em;
+}
+
+.text-submit-btn {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#user-input-container {
     margin-top: 5em;
 }
 
@@ -20,17 +42,14 @@
     margin-top: 5em;
 }
 
-#article-div {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#article-content {
-    margin-top: 2em;
+#article-textarea {
+    /*margin-top: 3em;*/
     height: 10em;
 }
 
-#article-submit {
-    margin-top: 2em;
+
+
+#article-panel {
+    border: none;
 }
+
